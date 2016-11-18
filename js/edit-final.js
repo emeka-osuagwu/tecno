@@ -41,7 +41,7 @@ $(document).ready(function(){
 		// downloadImage(self.canvas);
 		var caption_textarea = $('#caption-textarea');
 		caption_textarea.fadeOut(500);
-		drawTextToCanvas($('#caption-textarea'), self.canvas);
+		drawTextToCanvas(caption_textarea, self.canvas);
 		downloadImage(self.canvas);
 		return false;
 	});
@@ -77,11 +77,12 @@ function drawTextToCanvas(textArea, canvas){
     var yPos = offset.top - frameOffset.top;
     console.log(yPos+20, xPos+20);
     var font = 30;
-    if($(window).width() < 520){
-    	font = 40;
+    if($(window).width() > 520){
+    	font = 30;
     }else{
     	font = 25
     }
+
     canvas.drawText({
 	  fillStyle: '#f9f9f9',
 	  layer: true,
@@ -91,8 +92,11 @@ function drawTextToCanvas(textArea, canvas){
 	  fontFamily: 'Playfair Display',
 	  text: text,
 	  fromCenter: false,
-	  width: textArea.width() / 2
+	  maxWidth: textArea.width(),
+	  align: 'left',
+	  lineHeight: 1.7
 	});
+
 }
 function downloadImage(canvas){
 	var url = canvas.getCanvasImage('png');
